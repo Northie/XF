@@ -1,0 +1,9 @@
+#php_value xdebug.profiler_enable = 1
+#php_flag xdebug.profiler_output_dir = "C:\xampp\htdocs\zest_mailer\xdebug"
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]
