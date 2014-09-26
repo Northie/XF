@@ -21,7 +21,7 @@ class index extends \packages\package {
 			return false;
 		}
 
-		$this->data = array('wizard' => $this->getWizard());
+		$this->data = array('wizard' => $this->getWizard(), 'steps' => $this->getWizard()->getSteps());
 
 		if ($someCondition) {
 			$this->getWizard()->stepCompleted($this->currentStep);

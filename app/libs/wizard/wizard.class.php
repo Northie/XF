@@ -88,6 +88,9 @@ class wizard {
 	}
 
 	public function attemptStep($step) {
+
+		$this->attemptedStep = $step;
+
 		//look for $step in $this->steps
 		//if $step is first - ok
 		//else get all prior steps
@@ -96,11 +99,20 @@ class wizard {
 	}
 
 	public function stepCompleted($step) {
-
+		$session = new \core\XSession($this->key, 'steps');
+		$session->steps[$step] = 'passed';
 	}
 
 	public function stepFailed($step) {
+		$session = new \core\XSession($this->key, 'steps');
+		$session->steps[$step] = 'failed';
+	}
 
+	public function proceed() {
+		$session = new \core\XSession($this->key, 'steps');
+
+		print_r($_SESSION);
+		var_dump($this->attemptedStep);
 	}
 
 }

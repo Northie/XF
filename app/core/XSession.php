@@ -1,18 +1,24 @@
 <?php
 
+namespace core;
+
 class XSession {
 
 	public static $instance;
 	private $namespace = '_X';
 	private $default_namespace = '_X';
 
-	public function __construct($namespace) {
+	public function __construct($namespace, $prep = false) {
 		if ($namespace == '') {
 			$namespace = $this->default_namespace;
 		}
 		$this->namespace = $namespace;
 		if (!is_array($_SESSION['_' . $namespace])) {
 			$_SESSION['_' . $namespace] = array();
+		}
+
+		if ($prep && !is_array($_SESSION['_' . $namespace][$prep])) {
+			$_SESSION['_' . $namespace][$prep] = array();
 		}
 	}
 

@@ -13,9 +13,7 @@ class wizard extends defaultFilter {
 
 		$wizard = $this->package->getWizard();
 
-		var_dump($wizard);
-
-		die();
+		$wizard->proceed();
 
 		$this->FFW(__CLASS__, $this->deps);
 	}
