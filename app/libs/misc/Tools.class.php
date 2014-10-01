@@ -205,7 +205,7 @@ class Tools {
 		return $_GET['context'] == '' ? $req[0] : $_GET['context'];
 	}
 
-	public function getContextUnid($context) {
+	public static function getContextUnid($context) {
 
 		return "ZEST_MAILER";
 	}
@@ -518,11 +518,45 @@ class Tools {
 		return $s;
 	}
 
-	public function setSettings($key, $value, $domain = false) {
+	public static function setSettings($key, $value, $domain = false) {
 
 		$domain = $domain ? $domain : $_SESSION['domain']['id'];
 
 		\libs\models\Resource::Load('domain_setting')->updateSetting($key, $value, $domain);
 	}
+    
+    public static function ReadablePassword($str) {
+        $str = self::to_camel_case($str);
+        $str = ucfirst($str);
+        
+        $mapping = array(
+            'o'=>'0',
+            'O'=>'0',
+            'i'=>'1',
+            'l'=>'1',
+            'I'=>'1',
+            'z'=>'2',
+            'Z'=>'2',
+            'e'=>'3',
+            'a'=>'4',
+            's'=>'5',
+            'S'=>'5',
+            'B'=>'8',
+            'g'=>'&'
+        );
+        
+        $c = strlen($str);
+        $i = 0;
+        while($i<=$c) {
+            $i++;
+            
+            if($i % 2 == 0) {
+                $str[$i] = str_replace($str[$i],$mapping[$str[$i]],$str[$i]);
+            }
+        }
+        
+        return $str;
+        
+    }
 
 }
