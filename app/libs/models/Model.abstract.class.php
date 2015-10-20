@@ -221,7 +221,7 @@ abstract class Model implements iModel {
 		}
 		
 		$sql = "
-			SELECT
+			SELECT SQL_CALC_FOUND_ROWS
 				".$f."
 			FROM
 				`".$this->resource."`
@@ -288,7 +288,7 @@ abstract class Model implements iModel {
 		}
 		
 		$sql = "
-			SELECT
+			SELECT SQL_CALC_FOUND_ROWS
 				".$fields."
 			FROM
 				`".$this->resource."`
@@ -346,7 +346,8 @@ abstract class Model implements iModel {
 		//*/
 		$this->db->Execute($sql,$args)->fetchArray($rs)->fetchNumAffectedRows($c);
 		
-		$sql_c = "SELECT COUNT(*) as total FROM (".str_replace([$this->getLimits(),';'],'',$sql).") a";
+		//$sql_c = "SELECT COUNT(*) as total FROM (".str_replace([$this->getLimits(),';'],'',$sql).") a";
+		$sql_c = "select found_rows() as total;" 
 		
 		$this->db->Execute($sql_c,$args)->fetchRow($rsc);
 		
